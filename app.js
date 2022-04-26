@@ -1,9 +1,10 @@
 const http = require("http");
+const fs = require('fs');
 
 const server = http.createServer((req, res) => {
   const { url, method, headers } = req;
 
-  console.log(url, method, headers)
+  // console.log("\n-------------\n", url, method, headers, "\n-------------\n")
 
   if (url === "/" || url === "/home") {
       res.setHeader("content-type", 'text/html');
@@ -21,11 +22,25 @@ const server = http.createServer((req, res) => {
       return res.end();
     }
   else if (url === "/message" && method==='POST'){
-       return res.end("About Page");
-    //    return res.end("About Page");
+    // console.log('req', req)
+    const body = [];
+    req.on('data', (chunk) => {
+      body.push(chunk);
+    });
+
+    return req.on('end', () => {
+      const parsedBody = (Buffer.concat(body).toString().split('='))[1];
+      fs.writeFile('./message.txt', `\n${parsedBody}`, {
+        flag: 'a'
+      }, (_err) => {
+        res.statusCode = 302;
+        res.setHeader('location', '/');
+        return res.end();
+      });
+    });
 }
   else if (url === "/about") return res.end("About Page");
   else return res.end("Server Response");
 });
 
-server.listen(5000);
+server.listen(1795);
