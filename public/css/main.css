@@ -1,0 +1,16 @@
+body {margin: 0;
+    padding: 0;height: 100%;
+    width: 100%;
+    font-family: cursive;}
+
+header {background-color: #282828;color: #fff;}
+
+nav ul {margin: 0;min-height: 50px;display: flex;flex: 1;justify-content: flex-start;align-items: center;font-size: 1.3rem;}
+
+nav ul li {display: inline-flex;min-width: 60px;margin: 10px;}
+
+nav ul li a {color: #fff;text-decoration: none;transition: all .3s;border-bottom: none;}
+
+nav ul li a:hover {color: #e9b2ff;border-bottom: 1px solid;padding-bottom: 5px;}
+
+main {display: flex;flex: 1;justify-content: center;align-items: center;min-height: 100vh;}
